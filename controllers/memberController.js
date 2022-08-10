@@ -22,10 +22,10 @@ exports.member_create_get = (req, res, next) => {
 exports.member_create_post = [
 
   //Validate and sanitize
-  body('firstName').trim().isLength({ min: 1}).escape().withMessage('First Name required.'),
-  body('lastName').trim().isLength({ min: 1}).escape().withMessage('Last Name required'),
-  body('username').escape().isEmail().normalizeEmail(),
-  body('password').escape().isLength({ min: 8 }),
+  body('firstName').trim().escape().isLength({ min: 1}).withMessage('First Name required.'),
+  body('lastName').trim().escape().isLength({ min: 1}).withMessage('Last Name required').escape(),
+  body('username').escape().isEmail().normalizeEmail().withMessage('Please enter a valid email.'),
+  body('password').escape().isLength({ min: 8 }).withMessage('Password must be at least 8 characters.'),
   body('confirmPassword').custom((value, { req }) => {
     if (value !== req.body.password) {
       throw new Error('Password confirmation does not match password');
@@ -38,7 +38,12 @@ exports.member_create_post = [
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.render('sign-up');
+      res.render('sign-up', { 
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        username: req.body.username,
+        errors: errors.array()
+      });
     } else {
       bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) {

@@ -31,5 +31,12 @@
     </div>
     <button type="submit">Sign up</button>
   </form>
+  <% if (locals.errors) { %>
+    <ul>
+      <% errors.forEach((error) => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
 </body>
 </html>
