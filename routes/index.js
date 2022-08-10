@@ -16,10 +16,10 @@ router.get('/', (req, res, next) => {
 router.get('/members', member_controller.member_list);
 
 // GET member create
-router.get('/members/new', member_controller.member_create_get);
+router.get('/members/sign-up', member_controller.member_create_get);
 
 // POST member create
-router.post('/members/new', member_controller.member_create_post);
+router.post('/members/sign-up', member_controller.member_create_post);
 
 // GET member remove
 router.get('/member/:id/remove', member_controller.member_remove_get);
