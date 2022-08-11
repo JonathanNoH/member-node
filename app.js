@@ -25,6 +25,12 @@ app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// give access to locals for current user
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+})
+
 //set up routes
 app.use('/', indexRouter);
 app.use('/', authRouter);
