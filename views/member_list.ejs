@@ -10,7 +10,9 @@
   <h1>Members</h1>
   <ul>
     <% member_list.forEach((member) => { %>
-      <li><%= member.firstName %></li>
+      <li>
+        <a href="<%= member.url %>"><%= member.firstName %></a>
+      </li>
     <% }) %>
   </ul>
 </body>

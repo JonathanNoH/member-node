@@ -19,4 +19,10 @@ MemberSchema
   return `${this.firstName} ${this.lastName}`;
 });
 
+MemberSchema
+.virtual('url')
+.get(function() {
+  return `/member/${this._id}`;
+})
+
 module.exports = mongoose.model('Member', MemberSchema)

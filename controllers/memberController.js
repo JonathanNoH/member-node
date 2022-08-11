@@ -18,7 +18,26 @@ exports.member_list = (req, res, next) => {
 
 // Display member detail
 exports.member_detail = (req, res, next) => {
-  res.send('NOT IMPLEMENTED: member detail');
+  
+  async.parallel({
+    member(callback) {
+      Member.findById(req.params.id)
+      .exec(callback);
+    },
+    messages(callback) {
+      Message.find({ 'author': req.params.id})
+      .exec(callback);
+    },
+  }, (err, results) => {
+    if (err) { return next(err) }
+    if (results.member===null) {
+      let err = new Error('Member not found');
+      err.status = 404;
+      return next(err);
+    }
+    //success
+    res.render('member_detail', { member: results.member, messages: results.messages });
+  });
 };
 
 exports.member_create_get = (req, res, next) => {
