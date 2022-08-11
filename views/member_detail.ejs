@@ -8,12 +8,13 @@
 </head>
 <body>
   <h1><%= member.fullName %></h1>
+  <h2>Messages</h2>
   <ul>
     <% if (messages.length === 0) { %>
       <li>This member has no messages</li>
     <% } else { messages.forEach((message) => { %>
       <li>
-        <h2><%= message.title %></h2>
+        <h3><%= message.title %></h2>
         <p><%= message.content %></p>
         <p><%= message.timestamp %></p>
       </li>
