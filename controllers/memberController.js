@@ -7,7 +7,13 @@ const bcrypt = require('bcryptjs');
 
 // Display members
 exports.member_list = (req, res, next) => {
-  res.send('NOT IMPLEMENTED: members list');
+  
+  Member.find({}, 'firstName')
+  .sort({firstName : 1})
+  .exec((err, list_members) => {
+    if (err) {return next(err)}
+    res.render('member_list', { member_list: list_members });
+  });
 };
 
 // Display member detail

@@ -2,12 +2,11 @@ const express = require('express');
 const path = require("path");
 const session = require('express-session');
 const passport = require('passport');
-const bcrypt = require('bcryptjs');
-const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 require('dotenv').config();
 
 const indexRouter = require('./routes/index');
+const authRouter = require('./routes/auth');
 
 //set up mongodb
 const mongoDb = process.env.MONGODB_URI;
@@ -20,15 +19,14 @@ const app = express();
 app.set("views", path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(session({ secret: 'cats', resave: false, saveUninitialized: false}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //set up routes
 app.use('/', indexRouter);
-
-//404
-app.use((req, res, next) => {
-  next(createError(404));
-});
+app.use('/', authRouter);
 
 app.listen(3000, () => console.log("app listening on port 3000"));
