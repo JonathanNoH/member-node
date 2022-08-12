@@ -36,7 +36,7 @@ exports.member_detail = (req, res, next) => {
       return next(err);
     }
     //success
-    res.render('member_detail', { member: results.member, messages: results.messages });
+    res.render('member_detail', { member: results.member, messages: results.messages, id: req.params.id });
   });
 };
 
@@ -66,7 +66,7 @@ exports.member_create_post = [
   body('lastName').trim().escape().isLength({ min: 1}).withMessage('Last Name required').escape(),
   body('username').escape().isEmail().normalizeEmail({ gmail_remove_dots: false}).withMessage('Please enter a valid email.')
   .custom(checkEmailExists),
-  body('password').escape().isLength({ min: 8 }).withMessage('Password must be at least 8 characters.'),
+  body('password').isLength({ min: 8 }).withMessage('Password must be at least 8 characters.'),
   body('confirmPassword').custom((value, { req }) => {
     if (value !== req.body.password) {
       throw new Error('Password confirmation does not match password');
@@ -125,9 +125,56 @@ exports.member_update_post = (req, res, next) => {
 };
 
 exports.member_status_update_get = (req, res, next) => {
-  res.send('NOT IMPLEMENTED: member status update get');
+  Member.findById(req.params.id)
+  .exec((err, member) => {
+    if (err) { return next(err) }
+    if (!member) {
+      let err = new Error('Member not found');
+      err.status = 404;
+      return next(err);
+    }
+    const permission = (req.params.id === req.user.id || req.user.membership === 'admin')
+    res.render('member_status_update', { id: req.params.id, name: member.fullName, permission });
+  })
 };
 
-exports.member_status_update_post = (req, res, next) => {
-  res.send('NOT IMPLEMENTED: member status update post');
-};
+exports.member_status_update_post = [
+  
+  body('code').trim().escape(),
+  (req, res, next) => {
+    if (req.body.code === 'upupdowndownleftrightleftrightba') {
+      Member.findByIdAndUpdate(
+        req.params.id,
+        { membership: 'member'},
+        {},
+        (err, member) => {
+          if (err) {return next(err)}
+          // success
+          res.redirect(member.url);
+        }
+      );
+    } else if (req.body.code === process.env.ADMIN_CODE) {
+      Member.findByIdAndUpdate(
+        req.params.id,
+        { membership: 'admin'},
+        {},
+        (err, member) => {
+          if (err) {return next(err)}
+          // success
+          res.redirect(member.url);
+        }
+      );
+    } else {
+      Member.findById(req.params.id)
+      .exec((err, member) => {
+        if (err) { return next(err) }
+        if (!member) {
+          let err = new Error('Member not found');
+          err.status = 404;
+          return next(err);
+        }
+        res.render('member_status_update', { id: req.params.id, name: member.fullName, message: 'Incorrect code' });
+      });
+    }
+  },
+];

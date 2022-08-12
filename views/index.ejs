@@ -8,5 +8,14 @@
 </head>
 <body>
   <h1><%= title %></h1>
+  <nav>
+    <% if (locals.currentUser) { %>
+      <% if (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin') { %>
+      <a href="/members">View members list</a>
+    <% }} %>
+    <a href="/messages">View message board</a>
+    <a href="/login">Log in</a>
+    <a href="/members/sign-up">Sign up</a>
+  </nav>
 </body>
 </html>
