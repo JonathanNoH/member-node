@@ -8,7 +8,7 @@ const Member = require('../models/member');
 
 passport.use(
   new LocalStrategy((username, password, done) => {
-    Member.findOne({ username: username }) 
+    Member.findOne({ username: username.toLowerCase() }) 
     .exec((err, user) => {
       if (err) {
         return done(err);

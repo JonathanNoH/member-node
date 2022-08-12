@@ -44,12 +44,28 @@ exports.member_create_get = (req, res, next) => {
   res.render('sign-up');
 };
 
+const checkEmailExists = (email) => {
+  return new Promise((resolve, reject) => {
+    Member.findOne({ username: email })
+    .exec((err, user) => {
+      if(err) {
+        reject('Database error');
+      }
+      if (user) {
+        reject('Email already in use.');
+      }
+      resolve();
+    });
+  })
+}
+
 exports.member_create_post = [
 
   //Validate and sanitize
   body('firstName').trim().escape().isLength({ min: 1}).withMessage('First Name required.'),
   body('lastName').trim().escape().isLength({ min: 1}).withMessage('Last Name required').escape(),
-  body('username').escape().isEmail().normalizeEmail().withMessage('Please enter a valid email.'),
+  body('username').escape().isEmail().normalizeEmail({ gmail_remove_dots: false}).withMessage('Please enter a valid email.')
+  .custom(checkEmailExists),
   body('password').escape().isLength({ min: 8 }).withMessage('Password must be at least 8 characters.'),
   body('confirmPassword').custom((value, { req }) => {
     if (value !== req.body.password) {
