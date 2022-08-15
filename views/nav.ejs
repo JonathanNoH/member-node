@@ -6,6 +6,7 @@
       <a href="/members">View members list</a>
     <% } %>
     <a href="/member/<%= locals.currentUser.id %>"><%= locals.currentUser.firstName %></a>
+    <a href="/logout">Log Out</a>
   <% }  else { %>
     <a href="/login">Log in</a>
     <a href="/sign-up">Sign up</a>

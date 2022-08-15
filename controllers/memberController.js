@@ -24,11 +24,15 @@ exports.member_detail = (req, res, next) => {
   async.parallel({
     member(callback) {
       Member.findById(req.params.id)
-      .exec(callback);
+      .exec((err, results) => {
+        callback(err, results);
+      });
     },
     messages(callback) {
       Message.find({ 'author': req.params.id})
-      .exec(callback);
+      .exec((err, results) => {
+        callback(err, results);
+      });
     },
   }, (err, results) => {
     if (err) { return next(err) }

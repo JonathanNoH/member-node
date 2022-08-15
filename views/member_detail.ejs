@@ -9,9 +9,9 @@
 <body>
   <%- include('nav') -%>
   <% if (locals.currentUser) { %>
-    <% if (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin' || locals.currentUser._id === id) { %>
+    <% if (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin' || locals.currentUser.id === id) { %>
       <h1><%= member.fullName %></h1>
-      <p>Member Status <%= member.membership %></p>
+      <p>Member Status: <%= member.membership %> <a href="/member/<%= locals.currentUser.id %>/status">change</a></p>
       <h2>Messages</h2>
       <ul>
         <% if (messages.length === 0) { %>
