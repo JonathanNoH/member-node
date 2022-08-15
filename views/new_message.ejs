@@ -10,10 +10,14 @@
   <%- include('nav') -%>
   <h1>Create a new Message</h1>
   <form action="" method="post">
-    <label for="title">Subject: </label>
-    <input type="text" name="title" id="title" value="<%= locals.title || "" %>">
-    <label for="content">Message: </label>
-    <textarea name="content" id="content" cols="35" rows="10"><%= locals.content || "" %></textarea>
+    <section>
+      <label for="title">Subject: </label>
+      <input type="text" name="title" id="title" value="<%= locals.title || "" %>">
+    </section>
+    <section>
+      <label for="content">Message: </label>
+      <textarea name="content" id="content" cols="35" rows="10"><%= locals.content || "" %></textarea>
+    </section>
     <button type="submit">Submit</button>
   </form>
 </body>
