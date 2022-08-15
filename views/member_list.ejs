@@ -7,13 +7,18 @@
   <title>Members</title>
 </head>
 <body>
-  <h1>Members</h1>
-  <ul>
-    <% member_list.forEach((member) => { %>
-      <li>
-        <a href="<%= member.url %>"><%= member.firstName %></a>
-      </li>
-    <% }) %>
-  </ul>
+  <%- include('nav') -%>
+  <% if(locals.permission) { %>
+    <h1>Members</h1>
+      <ul>
+        <% member_list.forEach((member) => { %>
+          <li>
+            <a href="<%= member.url %>"><%= member.firstName %></a>
+          </li>
+        <% }) %>
+      </ul>
+  <% } else { %>
+    <p>Only members may view this page.</p>
+  <% } %>
 </body>
 </html>

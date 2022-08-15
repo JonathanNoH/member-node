@@ -7,6 +7,7 @@
   <title>Log in</title>
 </head>
 <body>
+   <%- include('nav') -%>
   <% if (locals.currentUser) { %>
     <h1>You are already logged in <%= locals.currentUser.firstName %></h1>
     <a href="/logout">Log out</a>

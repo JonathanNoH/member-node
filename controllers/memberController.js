@@ -8,11 +8,13 @@ const bcrypt = require('bcryptjs');
 // Display members
 exports.member_list = (req, res, next) => {
   
+  const permission = (req.user.membership === 'member' || req.user.membership === 'admin');
+
   Member.find({}, 'firstName')
   .sort({firstName : 1})
   .exec((err, list_members) => {
     if (err) {return next(err)}
-    res.render('member_list', { member_list: list_members });
+    res.render('member_list', { member_list: list_members, permission });
   });
 };
 
