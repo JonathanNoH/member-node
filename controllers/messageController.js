@@ -7,7 +7,7 @@ const async = require('async');
 // display message board
 exports.message_board = (req, res, next) => {
   Message.find({})
-  .sort({ timestamp: 1 })
+  .sort({ timestamp: -1 })
   .populate('author')
   .exec((err, results) => {
     if (err) {

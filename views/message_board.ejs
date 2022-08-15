@@ -10,6 +10,9 @@
   <%- include('nav') -%>
   <h1>Message Board</h1>
   <main>
+    <% if (locals.currentUser && (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin')) { %>
+      <a href="/messages/new">Create a new Post</a>
+    <% } %>
     <% messages.forEach((message) => { %>
       <div>
         <h2><%= message.title %></h2>
