@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Message</title>
+</head>
+<body>
+  <%- include('nav') -%>
+  <% if(locals.currentUser && locals.currentUser.membership === 'admin') { %>
+    <h1>Delete <%= message.author.fullName %>'s post?</h1>
+    <div>
+      <h2> <%= message.title %> </h2>
+      <p> <%= message.content %> </p>
+      <p> <%= message.timestamp %> </p>
+    </div>
+    <form action="" method="post">
+      <label for="delete">Are you sure you want to delete this post?</label>
+      <input type="checkbox" name="delete" id="delete">
+      <button type="submit">Delete</button>
+    </form>
+  <% } else { %>
+    <p>You do not have permission to view this page.</p>
+  <% } %>
+</body>
+</html>

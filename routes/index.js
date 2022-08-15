@@ -51,13 +51,13 @@ router.get('/messages/new', message_controller.new_message_get);
 router.post('/messages/new', message_controller.new_message_post);
 
 // GET message delete
-router.get('/message/:id/delete', message_controller.message_delete_get);
+router.get('/messages/:id/delete', message_controller.message_delete_get);
 
 // POST message delete
-router.post('/message/:id/delete', message_controller.message_delete_post);
+router.post('/messages/:id/delete', message_controller.message_delete_post);
 
 // GET message detail
-router.get('/message/:id', message_controller.message_detail);
+router.get('/messages/:id', message_controller.message_detail);
 
 // GET message board
 router.get('/messages', message_controller.message_board);

@@ -19,7 +19,14 @@ exports.message_board = (req, res, next) => {
 
 //details message
 exports.message_detail = (req, res, next) => {
-  res.send('NOT IMPLEMENTED: Message Detail');
+  Message.findById(req.params.id)
+  .populate('author')
+  .exec((err, message) => {
+    if (err) {
+      return next(err)
+    }
+    res.render('message_detail', { message });
+  });
 };
 
 exports.new_message_get = (req, res, next) => {
@@ -59,9 +66,25 @@ exports.new_message_post = [
 ];
 
 exports.message_delete_get = (req, res, next) => {
-  res.send('NOT IMPLEMENTED: Delete message get');
+  Message.findById(req.params.id)
+  .populate('author')
+  .exec((err, message) => {
+    if (err) {
+      return next(err);
+    }
+    res.render('message_delete', { message });
+  });
 };
 
 exports.message_delete_post = (req, res, next) => {
-  res.send('NOT IMPLEMENTED: delete message post');
+  if (Boolean(req.body.delete)) {
+    Message.findByIdAndRemove(req.params.id, (err) => {
+      if (err) {
+        return next(err);
+      }
+      res.redirect('/messages');
+    });
+  } else {
+    res.redirect(`/messages/${req.params.id}/delete`);
+  }
 };
