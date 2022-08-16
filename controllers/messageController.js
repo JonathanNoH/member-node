@@ -13,7 +13,7 @@ exports.message_board = (req, res, next) => {
     if (err) {
       return next(err);
     }
-    res.render('message_board', { messages: results });
+    res.render('message_board', { title: 'Messages', messages: results });
   })
 };
 
@@ -25,31 +25,32 @@ exports.message_detail = (req, res, next) => {
     if (err) {
       return next(err)
     }
-    res.render('message_detail', { message });
+    res.render('message_detail', { title: 'Message Detail', message });
   });
 };
 
 exports.new_message_get = (req, res, next) => {
-  res.render('new_message');
+  res.render('new_message', { title: 'Create a new Message' });
 };
 
 exports.new_message_post = [
 
   // Sanitize validate
-  body('title').trim().escape().isLength({ min: 1, max: 100 }).withMessage('Please enter a title between 1 and 100 characters.'),
+  body('messageTitle').trim().escape().isLength({ min: 1, max: 100 }).withMessage('Please enter a title between 1 and 100 characters.'),
   body('content').trim().escape().isLength({ min: 1, max: 1000}).withMessage('Messages can be between 1 and 1000 characters.'),
 
   (req, res, next) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
       res.render('new_message', {
-        title,
-        content,
+        title: 'Create a new Message',
+        messageTitle: req.body.messageTitle,
+        content: req.body.content,
       });
     } else {
       const date = new Date();
       const message = new Message({
-        title: req.body.title,
+        title: req.body.messageTitle,
         content: req.body.content,
         timestamp: date,
         author: req.user._id,
@@ -72,7 +73,7 @@ exports.message_delete_get = (req, res, next) => {
     if (err) {
       return next(err);
     }
-    res.render('message_delete', { message });
+    res.render('message_delete', { title: 'Delete Message', message });
   });
 };
 

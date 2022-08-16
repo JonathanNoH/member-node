@@ -1,43 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign up</title>
-</head>
+<%- include('head') -%>
 <body>
-  <h1>Sign up</h1>
-  <%- include('nav') -%>
-  <form action="" method="post">
-    <section >
-      <label for="firstName">First Name: </label>
-      <input type="text" name="firstName" id="firstName" required="true" value="<%= locals.firstName || "" %>">
-    </section>
-    <section >
-      <label for="lastName">Last Name: </label>
-      <input type="text" name="lastName" id="lastName" required="true" value="<%= locals.lastName || "" %>">
-    </section>
-    <section >
-      <label for="username">Email: </label>
-      <input type="email" name="username" id="username" required="true" value="<%= locals.username || "" %>">
-    </section>
-    <section >
-      <label for="password">Password: </label>
-      <input type="password" name="password" id="password" required="true">
-    </section>
-    <section >
-      <label for="confirmPassword">Confirm Password: </label>
-      <input type="password" name="confirmPassword" id="confirmPassword" required="true">
-    </section>
-    <button type="submit">Sign up</button>
-  </form>
-  <% if (locals.errors) { %>
-    <ul>
-      <% errors.forEach((error) => { %>
-        <li><%= error.msg %></li>
-      <% }) %>
-    </ul>
-  <% } %>
+  <%- include('header') -%>
+  <main>
+    <h2><%= title %></h2>
+    <form action="" method="post">
+      <section >
+        <label for="firstName">First Name: </label>
+        <input type="text" name="firstName" id="firstName" required="true" value="<%= locals.firstName || "" %>">
+      </section>
+      <section >
+        <label for="lastName">Last Name: </label>
+        <input type="text" name="lastName" id="lastName" required="true" value="<%= locals.lastName || "" %>">
+      </section>
+      <section >
+        <label for="username">Email: </label>
+        <input type="email" name="username" id="username" required="true" value="<%= locals.username || "" %>">
+      </section>
+      <section >
+        <label for="password">Password: </label>
+        <input type="password" name="password" id="password" required="true">
+      </section>
+      <section >
+        <label for="confirmPassword">Confirm Password: </label>
+        <input type="password" name="confirmPassword" id="confirmPassword" required="true">
+      </section>
+      <button type="submit">Sign up</button>
+    </form>
+    <% if (locals.errors) { %>
+      <ul>
+        <% errors.forEach((error) => { %>
+          <li><%= error.msg %></li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </main>
 </body>
-</html>
+<%- include('foot') -%>

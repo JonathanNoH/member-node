@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Update Member Status</title>
-</head>
+<%- include('head') -%>
 <body>
-  <%- include('nav') -%>
+  <%- include('header') -%>
   <% if (locals.permission) { %>
-    <h1>Update Member Status for: <%= name %></h1>
+    <h2>Update Member Status for: <%= name %></h2>
     <form action="" method="post">
       <label for="code">Input code for desired member status: </label>
       <input type="text" name="code" id="code">
@@ -22,4 +15,4 @@
     <p>You do not have permission to update this member's status.</p>
   <% } %>
 </body>
-</html>
+<%- include('foot') -%>

@@ -14,7 +14,7 @@ exports.member_list = (req, res, next) => {
   .sort({firstName : 1})
   .exec((err, list_members) => {
     if (err) {return next(err)}
-    res.render('member_list', { member_list: list_members, permission });
+    res.render('member_list', { title: 'Member list', member_list: list_members, permission });
   });
 };
 
@@ -42,12 +42,12 @@ exports.member_detail = (req, res, next) => {
       return next(err);
     }
     //success
-    res.render('member_detail', { member: results.member, messages: results.messages, id: req.params.id });
+    res.render('member_detail', { title: 'Member', member: results.member, messages: results.messages, id: req.params.id });
   });
 };
 
 exports.member_create_get = (req, res, next) => {
-  res.render('sign-up');
+  res.render('sign-up', { title: 'Sign up' });
 };
 
 const checkEmailExists = (email) => {
@@ -85,7 +85,8 @@ exports.member_create_post = [
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.render('sign-up', { 
+      res.render('sign-up', {
+        title: 'Sign up',
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         username: req.body.username,
@@ -140,7 +141,7 @@ exports.member_status_update_get = (req, res, next) => {
       return next(err);
     }
     const permission = (req.params.id === req.user.id || req.user.membership === 'admin')
-    res.render('member_status_update', { id: req.params.id, name: member.fullName, permission });
+    res.render('member_status_update', { title: 'Member Status Update', id: req.params.id, name: member.fullName, permission });
   })
 };
 

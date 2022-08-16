@@ -1,25 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Message Detail</title>
-</head>
+<%- include('head') -%>
 <body>
-  <%- include('nav') -%>
-  <% if(locals.currentUser && (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin')) { %>
-    <div>
-      <h2> <%= message.title %> </h2>
-      <p> <%= message.content %> </p>
-      <p> <%= message.author.fullName %></p>
-      <p> <%= message.timestamp %> </p>
-    </div>
-    <% if(locals.currentUser.membership === 'admin') { %>
-      <a href="/messages/<%= message.id %>/delete">Delete message</a>
+  <%- include('header') -%>
+  <main>
+    <% if(locals.currentUser && (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin')) { %>
+      <div>
+        <h2> <%= message.title %> </h2>
+        <p> <%= message.content %> </p>
+        <p> <%= message.author.fullName %></p>
+        <p> <%= message.timestamp %> </p>
+      </div>
+      <% if(locals.currentUser.membership === 'admin') { %>
+        <a href="/messages/<%= message.id %>/delete">Delete message</a>
+      <% } %>
+    <% } else { %>
+      <p>You do not have permission to view this page.</p>
     <% } %>
-  <% } else { %>
-    <p>You do not have permission to view this page.</p>
-  <% } %>
+  </main>
 </body>
-</html>
+<%- include('foot') -%>

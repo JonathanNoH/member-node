@@ -40,7 +40,7 @@ passport.deserializeUser(function(id, done) {
 // login and out
 
 router.get('/login', (req, res, next) => {
-  res.render('login');
+  res.render('login', { title: 'Log in' });
 });
 
 router.post(

@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Member Detail</title>
-</head>
+<%- include('head') -%>
 <body>
-  <%- include('nav') -%>
+  <%- include('header') -%>
   <% if (locals.currentUser) { %>
     <% if (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin' || locals.currentUser.id === id) { %>
-      <h1><%= member.fullName %></h1>
+      <h2><%= member.fullName %></h2>
       <p>Member Status: <%= member.membership %> <a href="/member/<%= locals.currentUser.id %>/status">change</a></p>
-      <h2>Messages</h2>
+      <h3>Messages</h3>
       <ul>
         <% if (messages.length === 0) { %>
           <li>This member has no messages</li>
@@ -25,7 +18,7 @@
         <% })} %>
       </ul>
   <% }} else { %>
-    <h1>You do not have permission to view this profile.</h1>
+    <p>You do not have permission to view this profile.</p>
   <% } %>
 </body>
-</html>
+<%- include('foot') -%>

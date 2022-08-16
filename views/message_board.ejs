@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Message Board</title>
-</head>
+<%- include('head') -%>
 <body>
-  <%- include('nav') -%>
-  <h1>Message Board</h1>
+  <%- include('header') -%>
   <main>
+    <h2>Message Board</h2>
     <% if (locals.currentUser && (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin')) { %>
       <a href="/messages/new">Create a new Post</a>
     <% } %>
@@ -25,6 +18,6 @@
       <% }} %>
       </div>
     <% }) %>
-    </main>
+  </main>
 </body>
-</html>
+<%- include('foot') -%>
