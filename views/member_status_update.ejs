@@ -1,18 +1,22 @@
 <%- include('head') -%>
 <body>
   <%- include('header') -%>
-  <% if (locals.permission) { %>
-    <h2>Update Member Status for: <%= name %></h2>
-    <form action="" method="post">
-      <label for="code">Input code for desired member status: </label>
-      <input type="text" name="code" id="code">
-      <button type="submit">Submit</button>
-    </form>
-    <% if (locals.message) { %>
-      <%= locals.message %>
-    <% } %>
-  <% } else { %>
-    <p>You do not have permission to update this member's status.</p>
-  <% } %>
+  <main>
+    <div class="container">
+      <% if (locals.permission) { %>
+        <h2>Update Member Status for: <%= name %></h2>
+        <form action="" method="post">
+          <label for="code">Input code for desired member status: </label>
+          <input type="text" name="code" id="code">
+          <button type="submit">Submit</button>
+        </form>
+        <% if (locals.message) { %>
+          <%= locals.message %>
+        <% } %>
+      <% } else { %>
+        <p>You do not have permission to update this member's status.</p>
+      <% } %>
+    </div>
+  </main>
 </body>
 <%- include('foot') -%>

@@ -1,17 +1,21 @@
 <%- include('head') -%>
 <body>
   <%- include('header') -%>
-  <% if(locals.permission) { %>
-    <h2>Members</h2>
-    <ul>
-      <% member_list.forEach((member) => { %>
-        <li>
-          <a href="<%= member.url %>"><%= member.firstName %></a>
-        </li>
-      <% }) %>
-    </ul>
-  <% } else { %>
-    <p>Only members may view this page.</p>
-  <% } %>
+  <main>
+    <div class="container member-container">
+      <% if(locals.permission) { %>
+        <h2>Members</h2>
+        <ul class="member-list">
+          <% member_list.forEach((member) => { %>
+            <li>
+              <a href="<%= member.url %>"><%= member.firstName %></a>
+            </li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <p>Only members may view this page.</p>
+      <% } %>
+    </div>
+  </main>
 </body>
 <%- include('foot') -%>

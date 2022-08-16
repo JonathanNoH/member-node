@@ -2,24 +2,26 @@
 <body>
   <%- include('header') -%>
   <main>
-    <% if (locals.currentUser) { %>
-      <h1>You are already logged in <%= locals.currentUser.firstName %></h1>
-      <a href="/logout">Log out</a>
-      <a href="/">Return Home</a>
-    <% } else { %>
-      <h2><%= title %></h2>
-      <form action="/login/password" method="post">
-        <section>
-          <label for="username">Username: </label>
-          <input type="text" name="username" id="username" autocomplete="username" required autofocus>
-        </section>
-        <section>
-          <label for="current-password">Password: </label>
-          <input type="password" name="password" id="current-password" autocomplete="current-password" required>
-        </section>
-        <button type="submit">Log in</button>
-      </form>
-    <% } %>
+    <div class="container login-form">
+      <% if (locals.currentUser) { %>
+        <h2>You are already logged in <%= locals.currentUser.firstName %></h2>
+        <a href="/logout">Log out</a>
+        <a href="/">Return Home</a>
+      <% } else { %>
+        <h2><%= title %></h2>
+        <form action="/login/password" method="post">
+          <section>
+            <label for="username">Username: </label>
+            <input type="text" name="username" id="username" autocomplete="username" required autofocus>
+          </section>
+          <section>
+            <label for="current-password">Password: </label>
+            <input type="password" name="password" id="current-password" autocomplete="current-password" required>
+          </section>
+          <button type="submit">Log in</button>
+        </form>
+      <% } %>
+    </div>
   </main>
 </body>
 <%- include('foot') -%>

@@ -2,18 +2,20 @@
 <body>
   <%- include('header') -%>
   <main>
-    <h2><%= title %></h2>
-    <form action="" method="post">
-      <section>
-        <label for="messageTitle">Subject: </label>
-        <input type="text" name="messageTitle" id="messageTitle" value="<%= locals.messageTitle || "" %>">
-      </section>
-      <section>
-        <label for="content">Message: </label>
-        <textarea name="content" id="content" cols="35" rows="10"><%= locals.content || "" %></textarea>
-      </section>
-      <button type="submit">Submit</button>
-    </form>
+    <div class="container login-form">
+      <h2><%= title %></h2>
+      <form action="" method="post">
+        <section>
+          <label for="messageTitle">Subject: </label>
+          <input type="text" name="messageTitle" id="messageTitle" value="<%= locals.messageTitle || "" %>">
+        </section>
+        <section>
+          <label for="content">Message: </label>
+          <textarea name="content" id="content" cols="35" rows="10"><%= locals.content || "" %></textarea>
+        </section>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   </main>
 </body>
 <%- include('foot') -%>

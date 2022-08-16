@@ -1,24 +1,29 @@
 <%- include('head') -%>
 <body>
   <%- include('header') -%>
-  <% if (locals.currentUser) { %>
-    <% if (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin' || locals.currentUser.id === id) { %>
-      <h2><%= member.fullName %></h2>
-      <p>Member Status: <%= member.membership %> <a href="/member/<%= locals.currentUser.id %>/status">change</a></p>
-      <h3>Messages</h3>
-      <ul>
-        <% if (messages.length === 0) { %>
-          <li>This member has no messages</li>
-        <% } else { messages.forEach((message) => { %>
-          <li>
-            <h3><%= message.title %></h2>
-            <p><%= message.content %></p>
-            <p><%= message.timestamp %></p>
-          </li>
-        <% })} %>
-      </ul>
-  <% }} else { %>
-    <p>You do not have permission to view this profile.</p>
-  <% } %>
+  <main>
+    <div class="container">
+      <% if (locals.currentUser) { %>
+        <% if (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin' || locals.currentUser.id === id) { %>
+          <h2><%= member.fullName %></h2>
+          <p>Member Status: <%= member.membership %> <a href="/member/<%= locals.currentUser.id %>/status">change</a></p>
+          <ul class="message-list-container">
+            <h3>Messages</h3>
+            <% if (messages.length === 0) { %>
+              <li>This member has no messages</li>
+            <% } else { messages.forEach((message) => { %>
+              <li class="message-container">
+                <h3><%= message.title %></h2>
+                <p><%= message.content %></p>
+                <p><%= message.timestamp %></p>
+                <a href="/messages/<%= message.id %>">View message detail</a>
+              </li>
+            <% })} %>
+          </ul>
+      <% }} else { %>
+        <p>You do not have permission to view this profile.</p>
+      <% } %>
+    </div>
+  </main>
 </body>
 <%- include('foot') -%>

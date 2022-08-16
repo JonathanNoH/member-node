@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs');
 // Display members
 exports.member_list = (req, res, next) => {
   
-  const permission = (req.user.membership === 'member' || req.user.membership === 'admin');
+  const permission = (req.user && (req.user.membership === 'member' || req.user.membership === 'admin'));
 
   Member.find({}, 'firstName')
   .sort({firstName : 1})

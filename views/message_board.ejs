@@ -2,22 +2,25 @@
 <body>
   <%- include('header') -%>
   <main>
-    <h2>Message Board</h2>
-    <% if (locals.currentUser && (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin')) { %>
-      <a href="/messages/new">Create a new Post</a>
-    <% } %>
-    <% messages.forEach((message) => { %>
-      <div>
-        <h2><%= message.title %></h2>
-        <p><%= message.content %></p>
-      <% if (locals.currentUser) { %>
-        <% if (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin') { %>
-            <p><%= message.timestamp %></p>
-            <p><%= message.author.fullName %></p>
-            <a href="/messages/<%= message.id %>">View message detail</a>
-      <% }} %>
+    <div class="container message-board">
+      <% if (locals.currentUser && (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin')) { %>
+        <a href="/messages/new" class="new-message">Create a new Post</a>
+      <% } %>
+      <div class="message-list-container">
+        <% messages.forEach((message) => { %>
+          <div class="message-container">
+            <h2><%= message.title %></h2>
+            <p><%= message.content %></p>
+          <% if (locals.currentUser) { %>
+            <% if (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin') { %>
+                <p><%= message.timestamp %></p>
+                <p><%= message.author.fullName %></p>
+                <a href="/messages/<%= message.id %>">View message detail</a>
+          <% }} %>
+          </div>
+        <% }) %>
       </div>
-    <% }) %>
+    </div>
   </main>
 </body>
 <%- include('foot') -%>

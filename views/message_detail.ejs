@@ -2,19 +2,21 @@
 <body>
   <%- include('header') -%>
   <main>
-    <% if(locals.currentUser && (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin')) { %>
-      <div>
-        <h2> <%= message.title %> </h2>
-        <p> <%= message.content %> </p>
-        <p> <%= message.author.fullName %></p>
-        <p> <%= message.timestamp %> </p>
-      </div>
-      <% if(locals.currentUser.membership === 'admin') { %>
-        <a href="/messages/<%= message.id %>/delete">Delete message</a>
+    <div class="container">
+      <% if(locals.currentUser && (locals.currentUser.membership === 'member' || locals.currentUser.membership === 'admin')) { %>
+        <div class="message-container">
+          <h2> <%= message.title %> </h2>
+          <p> <%= message.content %> </p>
+          <p> <%= message.author.fullName %></p>
+          <p> <%= message.timestamp %> </p>
+          <% if(locals.currentUser.membership === 'admin') { %>
+            <a href="/messages/<%= message.id %>/delete">Delete message</a>
+          <% } %>
+        </div> 
+      <% } else { %>
+        <p>You do not have permission to view this page.</p>
       <% } %>
-    <% } else { %>
-      <p>You do not have permission to view this page.</p>
-    <% } %>
+    </div>
   </main>
 </body>
 <%- include('foot') -%>
