@@ -88,6 +88,7 @@ select {
 body {
   color: var(--text);
   font-family: 'Roboto';
+  background-color: var(--background);
 }
 
 a, button {
