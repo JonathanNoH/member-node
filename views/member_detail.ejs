@@ -15,7 +15,7 @@
               <li class="message-container">
                 <h3><%= message.title %></h2>
                 <p><%= message.content %></p>
-                <p><%= message.timestamp %></p>
+                <p><%= message.formattedDate %></p>
                 <a href="/messages/<%= message.id %>">View message detail</a>
               </li>
             <% })} %>

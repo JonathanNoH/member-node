@@ -8,7 +8,7 @@
           <h2> <%= message.title %> </h2>
           <p> <%= message.content %> </p>
           <p> <%= message.author.fullName %></p>
-          <p> <%= message.timestamp %> </p>
+          <p> <%= message.formattedDate %> </p>
           <% if(locals.currentUser.membership === 'admin') { %>
             <a href="/messages/<%= message.id %>/delete">Delete message</a>
           <% } %>
