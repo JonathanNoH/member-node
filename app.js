@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const compression = require('compression');
 const helmet = require('helmet');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
@@ -18,6 +19,19 @@ db.on('error', console.error.bind(console, "mongo connection error"));
 
 //set up express
 const app = express();
+const store = new MongoDBStore({
+  uri: process.env.MONGODB_URI,
+  databaseName: 'member-app',
+  collection: 'mySessions'
+},
+(err) => {
+  console.log(err);
+});
+
+// catch errors mongodb
+store.on('error', (err) => {
+  console.log(err);
+});
 
 app.use(compression());
 app.use(helmet());
@@ -25,7 +39,16 @@ app.set("views", path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: 'cats', resave: false, saveUninitialized: false}));
+app.use(session({
+  secret: 'super secret cats attack',
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 7 // a week
+  },
+  store: store,
+  resave: true,
+  saveUninitialized: true
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
