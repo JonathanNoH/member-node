@@ -4,6 +4,8 @@ const session = require('express-session');
 const passport = require('passport');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const compression = require('compression');
+const helmet = require('helmet');
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
@@ -16,6 +18,9 @@ db.on('error', console.error.bind(console, "mongo connection error"));
 
 //set up express
 const app = express();
+
+app.use(compression());
+app.use(helmet());
 app.set("views", path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use('/static', express.static(path.join(__dirname, 'public')));
