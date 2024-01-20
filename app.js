@@ -7,12 +7,13 @@ require('dotenv').config();
 const compression = require('compression');
 const helmet = require('helmet');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const fs = require('fs');
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 
 //set up mongodb
-const mongoDb = process.env.MONGODB_URI;
+const mongoDb = fs.readFileSync(process.env.MONGODB_URI, 'utf-8');
 mongoose.connect(mongoDb, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, "mongo connection error"));
@@ -20,7 +21,7 @@ db.on('error', console.error.bind(console, "mongo connection error"));
 //set up express
 const app = express();
 const store = new MongoDBStore({
-  uri: process.env.MONGODB_URI,
+  uri: mongoDb,
   databaseName: 'member-app',
   collection: 'mySessions'
 },
