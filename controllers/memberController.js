@@ -4,6 +4,15 @@ const Message = require('../models/message');
 const { body, validationResult } = require('express-validator');
 const async = require('async');
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
+
+let admin_code;
+try {
+  admin_code = fs.readFileSync(process.env.ADMIN_CODE);
+} catch {
+  admin_code = process.env.ADMIN_CODE;
+}
+const ADMIN_CODE = admin_code;
 
 // Display members
 exports.member_list = (req, res, next) => {
@@ -160,7 +169,7 @@ exports.member_status_update_post = [
           res.redirect(member.url);
         }
       );
-    } else if (req.body.code === process.env.ADMIN_CODE) {
+    } else if (req.body.code === ADMIN_CODE) {
       Member.findByIdAndUpdate(
         req.params.id,
         { membership: 'admin'},

@@ -13,7 +13,13 @@ const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 
 //set up mongodb
-const mongoDb = fs.readFileSync(process.env.MONGODB_URI, 'utf-8');
+let mongodbURI;
+try {
+  mongodbURI = fs.readFileSync(process.env.MONGODB_URI, 'utf-8');
+} catch {
+  mongodbURI = process.env.MONGODB_URI;
+}
+const mongoDb = mongodbURI
 mongoose.connect(mongoDb, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, "mongo connection error"));
